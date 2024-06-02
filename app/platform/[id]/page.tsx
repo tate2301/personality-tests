@@ -8,6 +8,11 @@ import Link from "next/link";
 import { getQuestion } from "../../../lib/question";
 import QuestionOptions from "@/components/QuestionOptions/OptionList";
 import QuestionCard from "@/components/QuestionCard";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Personality test",
+};
 
 /**
  * TODO: Edge cases:

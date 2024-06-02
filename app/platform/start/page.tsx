@@ -1,7 +1,12 @@
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
+import { Metadata } from "next";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+
+export const metadata: Metadata = {
+  title: "Start - Personality test",
+};
 
 export default function Start() {
   const name = cookies().get("name");
