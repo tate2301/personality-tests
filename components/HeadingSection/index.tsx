@@ -1,4 +1,5 @@
 "use client";
+import { staggeredRevealVariants } from "@/lib/motion";
 import { motion } from "framer-motion";
 
 type HeadingSectionProps = {
@@ -8,18 +9,7 @@ type HeadingSectionProps = {
 
 const HeadingSection = (props: HeadingSectionProps) => {
   return (
-    <motion.div
-      initial={{
-        opacity: 0,
-      }}
-      animate={{
-        opacity: 1,
-        transition: {
-          delay: 0.3,
-        },
-      }}
-      className="mb-16"
-    >
+    <motion.div variants={staggeredRevealVariants} className="mb-16">
       <motion.h1 className="text-3xl md:text-5xl font-medium leading-[1.2] tracking-tight">
         {props.title}
       </motion.h1>
