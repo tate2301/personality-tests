@@ -18,6 +18,7 @@ const config: Config = {
     "^@/lib/(.*)$": "<rootDir>/lib/$1",
     "^@/styles/(.*)$": "<rootDir>/styles/$1",
   },
+  preset: "ts-jest",
 };
 
 export default createJestConfig(config);

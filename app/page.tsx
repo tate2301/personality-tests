@@ -1,21 +1,21 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
+async function handleSubmit(formData: FormData) {
+  "use server";
+
+  const rawData = {
+    name: formData.get("name"),
+  };
+
+  if (!rawData.name) return "Please enter your name.";
+
+  cookies().set("name", rawData.name as string);
+
+  redirect(`/platform/start`);
+}
+
 export default function Home() {
-  async function handleSubmit(formData: FormData) {
-    "use server";
-
-    const rawData = {
-      name: formData.get("name"),
-    };
-
-    if (!rawData.name) return "Please enter your name.";
-
-    cookies().set("name", rawData.name as string);
-
-    redirect(`/platform/start`);
-  }
-
   return (
     <main className="min-h-screen p-24 max-w-5xl mx-auto">
       <div className="mb-16">
