@@ -90,7 +90,10 @@ const QuestionCard = (props: {
               Next question <ArrowRightIcon className="w-6 h-6 ml-2" />
             </Button>
           ) : (
-            <Button>
+            <Button
+              disabled={!selectedOption}
+              className="disabled:!opacity-40 transition-opacity duration-300"
+            >
               {selectedOption && (
                 <Link
                   href={`/platform/results`}
