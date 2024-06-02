@@ -1,4 +1,3 @@
-import HeadingSection from "@/components/HeadingSection";
 import ResultsPageTemplate from "@/components/ResultsPageTemplate";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
