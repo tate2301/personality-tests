@@ -2,7 +2,7 @@
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { GeistMono } from "geist/font/mono";
-import Button from "../QuestionCard/Button";
+import LinkButton from "../QuestionCard/Button";
 import { ArrowPathIcon } from "@heroicons/react/20/solid";
 
 const ResultsCard = () => {
@@ -43,9 +43,9 @@ const ResultsCard = () => {
         <div className="w-[26%] h-[24px] rounded-full bg-orange-500/50" />
       </div>
       <div>
-        <Button className="bg-zinc-900/10">
+        <LinkButton href={"/"} className="bg-zinc-900/10">
           Retake the test <ArrowPathIcon className="w-6 h-6 ml-2" />
-        </Button>
+        </LinkButton>
       </div>
     </motion.div>
   );

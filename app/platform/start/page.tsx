@@ -1,3 +1,4 @@
+import HeadingSection from "@/components/HeadingSection";
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
 import { Metadata } from "next";
 import { cookies } from "next/headers";
@@ -14,15 +15,11 @@ export default function Start() {
   if (!name?.value) return redirect("/");
 
   return (
-    <main className="min-h-screen p-24 max-w-5xl mx-auto">
-      <div className="mb-16">
-        <h1 className="text-5xl font-medium leading-[1.2] tracking-tight">
-          Hi there, {name.value}.
-        </h1>
-        <p className="text-5xl font-medium text-zinc-500 leading-[1.2] tracking-tight">
-          Start your personality test?
-        </p>
-      </div>
+    <main className="min-h-screen md:p-24 pt-24 p-4 max-w-5xl mx-auto">
+      <HeadingSection
+        title={`Hi there, ${name.value}.`}
+        tagline="Start your personality test?"
+      />
       <div>
         <Link href={"/platform/1"}>
           <button className="h-[48px] flex space-x-4 items-center rounded-full font-semibold bg-[#DBDBDB] py-2 px-6">

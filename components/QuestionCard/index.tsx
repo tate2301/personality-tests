@@ -7,7 +7,7 @@ import {
   ArrowRightIcon,
   CheckCircleIcon,
 } from "@heroicons/react/20/solid";
-import Button from "./Button";
+import LinkButton from "./Button";
 import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
 import { spring } from "@/lib/utils";
@@ -64,44 +64,32 @@ const QuestionCard = (props: {
       <div className="flex gap-8">
         <AnimatePresence mode="wait" initial={false}>
           {props.question.id > 1 && (
-            <Button className="aspect-square p-0 bg-[#DBDBDB] border border-white/50">
-              <Link
-                href={`/platform/${props.question.id - 1}`}
-                className="inset-0 z-1 absolute"
-              />
-
+            <LinkButton
+              href={`/platform/${props.question.id - 1}`}
+              className="aspect-square p-0 bg-[#DBDBDB] border border-white/50"
+            >
               <ArrowLeftIcon className="w-6 h-6 mx-auto" />
-            </Button>
+            </LinkButton>
           )}
         </AnimatePresence>
 
         <AnimatePresence mode="wait" initial={false}>
           {props.nextQuestionIdx ? (
-            <Button
+            <LinkButton
+              href={`/platform/${props.nextQuestionIdx}`}
               disabled={!selectedOption}
               className="disabled:!opacity-40 transition-opacity duration-300"
             >
-              {selectedOption && (
-                <Link
-                  href={`/platform/${props.nextQuestionIdx}`}
-                  className="inset-0 z-1 absolute"
-                />
-              )}
               Next question <ArrowRightIcon className="w-6 h-6 ml-2" />
-            </Button>
+            </LinkButton>
           ) : (
-            <Button
+            <LinkButton
+              href={`/platform/results`}
               disabled={!selectedOption}
               className="disabled:!opacity-40 transition-opacity duration-300"
             >
-              {selectedOption && (
-                <Link
-                  href={`/platform/results`}
-                  className="inset-0 z-1 absolute"
-                />
-              )}
               Finish test <CheckCircleIcon className="w-6 h-6 ml-2" />
-            </Button>
+            </LinkButton>
           )}
         </AnimatePresence>
       </div>

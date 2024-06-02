@@ -30,7 +30,7 @@ export default async function PersonalityTest(props: {
   const question = data?.question as Question;
   const nextQuestionIdx = data?.nextQuestionIdx as number | undefined;
   return (
-    <main className="min-h-screen p-24 max-w-5xl mx-auto">
+    <main className="min-h-screen md:p-24 pt-24 p-4 max-w-5xl mx-auto">
       <QuestionCard question={question} nextQuestionIdx={nextQuestionIdx} />
     </main>
   );
