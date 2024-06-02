@@ -19,7 +19,7 @@ export default function Start() {
         </p>
       </div>
       <div>
-        <Link href={"/platform"}>
+        <Link href={"/platform/1"}>
           <button className="h-[48px] flex space-x-4 items-center rounded-full font-semibold bg-[#DBDBDB] py-2 px-6">
             Start test now
             <ArrowRightIcon className="w-6 h-6 ml-2" />

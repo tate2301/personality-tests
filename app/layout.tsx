@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
+import Template from "@/components/Template";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={GeistSans.className}>
-        {children}
+        <Template>{children}</Template>
         <footer className="w-screen bottom-0 p-4 left-0 fixed bg-[#E7E7E7]">
           <p className="text-sm mx-auto w-fit text-zinc-500 font-medium">
             We do not store your personal data. We take your privacy very
