@@ -23,7 +23,7 @@ async function handleSubmit(formData: FormData) {
 
 export default function Home() {
   return (
-    <main className="min-h-screen p-4 md:p-24 pt-24 md:pt-0 max-w-5xl mx-auto">
+    <main className="min-h-screen p-4 md:p-24 pt-24 max-w-5xl mx-auto">
       <HeadingSection title="Welcome" tagline="Let us get started!" />
       <form action={handleSubmit}>
         <input
