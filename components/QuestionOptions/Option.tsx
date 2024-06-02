@@ -9,7 +9,6 @@ type OptionProps = {
 };
 
 const Option = (props: OptionProps) => {
-  console.log(props.isSelected);
   return (
     <div
       className={cn(

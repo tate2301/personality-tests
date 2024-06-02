@@ -73,25 +73,28 @@ const QuestionCard = (props: {
           )}
         </AnimatePresence>
 
-        <AnimatePresence mode="wait" initial={false}>
-          {props.nextQuestionIdx ? (
-            <LinkButton
-              href={`/platform/${props.nextQuestionIdx}`}
-              disabled={!selectedOption}
-              className="disabled:!opacity-40 transition-opacity duration-300"
-            >
-              Next question <ArrowRightIcon className="w-6 h-6 ml-2" />
-            </LinkButton>
-          ) : (
-            <LinkButton
-              href={`/platform/results`}
-              disabled={!selectedOption}
-              className="disabled:!opacity-40 transition-opacity duration-300"
-            >
-              Finish test <CheckCircleIcon className="w-6 h-6 ml-2" />
-            </LinkButton>
-          )}
-        </AnimatePresence>
+        <LinkButton
+          href={
+            props.nextQuestionIdx
+              ? `/platform/${props.nextQuestionIdx}`
+              : `/platform/results`
+          }
+          disabled={!selectedOption && selectedOption !== 0}
+          className="disabled:!opacity-40 transition-opacity duration-300"
+        >
+          <AnimatePresence>
+            {props.nextQuestionIdx && (
+              <>
+                Next question <ArrowRightIcon className="w-6 h-6 ml-2" />
+              </>
+            )}
+            {!props.nextQuestionIdx && (
+              <>
+                Finish test <CheckCircleIcon className="w-6 h-6 ml-2" />
+              </>
+            )}
+          </AnimatePresence>
+        </LinkButton>
       </div>
     </motion.div>
   );
