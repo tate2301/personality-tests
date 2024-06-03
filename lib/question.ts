@@ -55,7 +55,7 @@ const questions: Array<Question> = [
   },
 ];
 
-export const getQuestions = async () => {
+export const getQuestions = async (): Promise<Array<Question>> => {
   return questions;
 };
 
@@ -82,4 +82,27 @@ export const getQuestion = async (params: {
         ? undefined
         : Number(params.id) + 1,
   };
+};
+
+export const getPercentageScore = (answers: Array<number>): number => {
+  const scores = [-2, -1, 0, 1, 2];
+  const total = answers.reduce((acc, answer) => {
+    console.log({ acc, answer });
+    return acc + scores[answer];
+  }, 0);
+
+  console.log({ total });
+
+  const percentage =
+    ((total + 2 * answers.length) / (2 * 2 * answers.length)) * 100;
+
+  return Number(percentage.toFixed(0));
+};
+
+export const getPersonalityFromScore = (
+  score: number
+): "Introvert" | "Extrovert" | "Ambivert" => {
+  if (score < 50) return "Introvert";
+  if (score > 50) return "Extrovert";
+  return "Ambivert";
 };

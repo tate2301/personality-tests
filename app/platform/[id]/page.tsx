@@ -24,14 +24,25 @@ export default async function PersonalityTest(props: {
   params: {
     id: string;
   };
+  searchParams: {
+    answers: string;
+  };
 }) {
+  const answers = props.searchParams.answers;
   // TODO: Handle the undefined case for the question
   const data = await getQuestion({ id: Number(props.params.id) });
-  const question = data?.question as Question;
-  const nextQuestionIdx = data?.nextQuestionIdx as number | undefined;
+  if (!data) {
+    return;
+  }
+  const question = data.question as Question;
+  const nextQuestionIdx = data.nextQuestionIdx as number | undefined;
   return (
     <main className="min-h-screen md:p-24 pt-24 p-4 max-w-5xl mx-auto">
-      <QuestionCard question={question} nextQuestionIdx={nextQuestionIdx} />
+      <QuestionCard
+        question={question}
+        nextQuestionIdx={nextQuestionIdx}
+        answers={answers ?? ""}
+      />
     </main>
   );
 }

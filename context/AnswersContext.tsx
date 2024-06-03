@@ -1,11 +1,11 @@
 "use client";
-import { ReactNode, createContext, useState } from "react";
+import { ReactNode, createContext, useEffect, useState } from "react";
 
 type AnswersContext = {
   name: string | null;
   answers: Map<string, number>;
   commitAnswer: (questionId: number, optionIdx: number) => void;
-  removeAnswer: (questionId: number, optionIdx: number) => void;
+  removeAnswer: (questionId: number) => void;
 };
 
 const AnswersContext = createContext<AnswersContext>({
@@ -25,16 +25,27 @@ const AnswersContextProvider = (props: {
     setAnswers((prevAnswers) => {
       const newAnswers = new Map(prevAnswers);
       newAnswers.set(questionId.toString(), optionIdx);
+      localStorage.setItem(props.name, JSON.stringify(Array.from(newAnswers)));
       return newAnswers;
     });
   };
-  const removeAnswer = (questionId: number, optionIdx: number) => {
+
+  const removeAnswer = (questionId: number) => {
     setAnswers((prevAnswers) => {
       const newAnswers = new Map(prevAnswers);
       newAnswers.delete(questionId.toString());
+      localStorage.setItem(props.name, JSON.stringify(Array.from(newAnswers)));
       return newAnswers;
     });
   };
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const storedAnswers = localStorage.getItem(props.name);
+    if (storedAnswers) {
+      setAnswers(new Map(JSON.parse(storedAnswers)));
+    }
+  }, []);
 
   return (
     <AnswersContext.Provider

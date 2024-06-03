@@ -1,3 +1,4 @@
+import Button from "@/components/Button";
 import HeadingSection from "@/components/HeadingSection";
 import { Metadata } from "next";
 import { cookies } from "next/headers";
@@ -32,9 +33,15 @@ export default function Home() {
           autoComplete="off"
           type="text"
           placeholder="What's your name?"
-          className="border-b-2 text-2xl md:text-5xl font-medium border-zinc-400/10 bg-transparent focus:border-zinc-400/50 outline-none text-zinc-500"
+          className="border-b-2 text-2xl md:text-5xl border-zinc-400/10 bg-transparent focus:border-zinc-400/50 outline-none text-zinc-500 mb-16"
           autoFocus
         />
+        <button
+          className="h-[48px] rounded-full relative font-semibold bg-white/80 px-6 flex items-center"
+          type="submit"
+        >
+          Continue
+        </button>
       </form>
     </main>
   );

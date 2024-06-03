@@ -9,12 +9,13 @@ export const metadata: Metadata = {
 
 export default function Test() {
   const name = cookies().get("name");
+  const score = Number((Math.random() * 100).toFixed(0));
 
   if (!name?.value) return redirect("/");
 
   return (
-    <main className="min-h-screen p-24 max-w-5xl mx-auto">
-      <ResultsPageTemplate name={name.value} />
+    <main className="min-h-screen md:p-24 pt-24 p-4 max-w-5xl mx-auto">
+      <ResultsPageTemplate name={name.value} score={score} />
     </main>
   );
 }
