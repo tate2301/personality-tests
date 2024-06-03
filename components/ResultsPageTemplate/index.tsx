@@ -1,35 +1,34 @@
 "use client";
 import { AnimatePresence, motion } from "framer-motion";
 import HeadingSection from "../HeadingSection";
-import { useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import ResultsCard from "../ResultsCard";
 import { staggeredRevealVariants } from "@/lib/motion";
+import AnswersContext from "@/context/AnswersContext";
+import { getPercentageScore, getPersonalityFromScore } from "@/lib/question";
 
 type ResultsProps = {
   name: string;
+  score: number;
 };
 
 const ResultsPageTemplate = (props: ResultsProps) => {
-  const score = useMemo(() => {
-    let rand = Number((Math.random() * 100).toFixed(0));
-
-    // Edge case: we have a 50, we just want to balance it out
-    if (rand === 50) rand += 1;
-
-    return rand;
-  }, []);
+  const context = useContext(AnswersContext);
 
   const [headingSection, setHeadingSection] = useState({
-    title: `Hey ${props.name}`,
+    title: `Hey ${context.name}`,
     tagline: "We are analyzing your answers, please wait a moment",
     finalState: false,
   });
 
-  const personality_type = useMemo(() => {
-    return Number(score) < 50 ? "Extrovert" : "Introvert";
-  }, [score]);
+  const score = useMemo(() => {
+    const options = context.answers.values();
+    return getPercentageScore(Array.from(options));
+  }, [context.answers]);
 
   useEffect(() => {
+    const personality_type = getPersonalityFromScore(score);
+
     setTimeout(() => {
       setHeadingSection({
         title: `An ${personality_type}`,
@@ -37,7 +36,9 @@ const ResultsPageTemplate = (props: ResultsProps) => {
         finalState: true,
       });
     }, 1000);
-  }, []);
+  }, [context.answers]);
+
+  console.log({ score, answers: Array.from(context.answers.values()) });
 
   return (
     <motion.div
@@ -49,7 +50,7 @@ const ResultsPageTemplate = (props: ResultsProps) => {
       <HeadingSection key={headingSection.title} {...headingSection} />
       <motion.div variants={staggeredRevealVariants}>
         <AnimatePresence>
-          {headingSection.finalState && <ResultsCard score={Number(score)} />}
+          {headingSection.finalState && <ResultsCard score={score} />}
         </AnimatePresence>
       </motion.div>
     </motion.div>

@@ -2,8 +2,9 @@
 import { cn, spring } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { GeistMono } from "geist/font/mono";
-import LinkButton from "../QuestionCard/Button";
+import Button from "../Button";
 import { ArrowPathIcon } from "@heroicons/react/20/solid";
+import Link from "next/link";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -57,20 +58,24 @@ const ResultsCard = (props: { score: number }) => {
       </motion.div>
       <motion.div variants={containerVariants} className="flex gap-2 mb-8">
         <motion.div
+          initial={{ minWidth: 0 }}
           animate={{ width: `${props.score}%`, minWidth: "3%" }}
           transition={{ ...spring }}
           className="flex-1 h-[24px] rounded-full bg-indigo-500/50"
         />
         <motion.div
+          initial={{ minWidth: 0 }}
           animate={{ width: `${100 - props.score}%`, minWidth: "3%" }}
           transition={{ ...spring }}
           className="w-[26%] h-[24px] rounded-full bg-orange-500/50"
         />
       </motion.div>
       <motion.div variants={containerVariants}>
-        <LinkButton href={"/"} className="bg-zinc-900/10">
-          Retake the test <ArrowPathIcon className="w-6 h-6 ml-2" />
-        </LinkButton>
+        <Link href="/">
+          <Button className="bg-zinc-900/10">
+            Retake the test <ArrowPathIcon className="w-6 h-6 ml-2" />
+          </Button>
+        </Link>
       </motion.div>
     </motion.div>
   );

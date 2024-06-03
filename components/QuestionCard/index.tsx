@@ -7,20 +7,50 @@ import {
   ArrowRightIcon,
   CheckCircleIcon,
 } from "@heroicons/react/20/solid";
-import LinkButton from "./Button";
+import Button from "../Button";
 import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
 import { spring } from "@/lib/utils";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { useRouter } from "next/navigation";
+import AnswersContext from "@/context/AnswersContext";
 
 const QuestionCard = (props: {
   question: Question;
   nextQuestionIdx: number | undefined;
+  answers: string;
 }) => {
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
+  const router = useRouter();
+  const context = useContext(AnswersContext);
 
   const handleOptionChange = (option: number) => {
     setSelectedOption(option);
+  };
+
+  const restartSession = () => {
+    new Array(5).fill(null).forEach((_, idx) => {
+      context.removeAnswer(idx + 1);
+    });
+    router.push("/platform/1");
+  };
+
+  const previous = () => {
+    if (props.question.id === 1) return;
+    new Array(props.question.id - 1).fill(null).forEach((_, idx) => {
+      context.removeAnswer(idx + 1);
+    });
+    router.push(`/platform/${props.question.id - 1}`);
+  };
+
+  const next = (isFinal?: boolean) => {
+    if (!selectedOption && selectedOption !== 0) return;
+    context.commitAnswer(props.question.id, selectedOption);
+    if (isFinal) {
+      router.push("/platform/results");
+    } else {
+      router.push(`/platform/${props.nextQuestionIdx}`);
+    }
   };
 
   return (
@@ -37,9 +67,9 @@ const QuestionCard = (props: {
             </span>{" "}
             of 5
           </p>
-          <Link href={"/platform/1"} className="font-semibold">
+          <button onClick={restartSession} className="font-semibold">
             Restart session
-          </Link>
+          </button>
         </div>
         <div className="p-6 space-y-8">
           <motion.div
@@ -64,21 +94,17 @@ const QuestionCard = (props: {
       <div className="flex gap-8">
         <AnimatePresence mode="wait" initial={false}>
           {props.question.id > 1 && (
-            <LinkButton
-              href={`/platform/${props.question.id - 1}`}
+            <Button
+              onClick={previous}
               className="aspect-square p-0 bg-[#DBDBDB] border border-white/50"
             >
               <ArrowLeftIcon className="w-6 h-6 mx-auto" />
-            </LinkButton>
+            </Button>
           )}
         </AnimatePresence>
 
-        <LinkButton
-          href={
-            props.nextQuestionIdx
-              ? `/platform/${props.nextQuestionIdx}`
-              : `/platform/results`
-          }
+        <Button
+          onClick={() => next(!props.nextQuestionIdx)}
           disabled={!selectedOption && selectedOption !== 0}
           className="disabled:!opacity-40 transition-opacity duration-300"
         >
@@ -94,7 +120,7 @@ const QuestionCard = (props: {
               </>
             )}
           </AnimatePresence>
-        </LinkButton>
+        </Button>
       </div>
     </motion.div>
   );
