@@ -1,14 +1,8 @@
 "use client";
+import { TAnswersContext } from "@/types";
 import { ReactNode, createContext, useEffect, useState } from "react";
 
-type AnswersContext = {
-  name: string | null;
-  answers: Map<string, number>;
-  commitAnswer: (questionId: number, optionIdx: number) => void;
-  removeAnswer: (questionId: number) => void;
-};
-
-const AnswersContext = createContext<AnswersContext>({
+const AnswersContext = createContext<TAnswersContext>({
   name: null,
   answers: new Map(),
   commitAnswer: () => {},

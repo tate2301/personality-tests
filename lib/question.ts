@@ -55,7 +55,7 @@ const questions: Array<Question> = [
   },
 ];
 
-export const getQuestions = async (): Promise<Array<Question>> => {
+export const getQuestions = (): Array<Question> => {
   return questions;
 };
 
@@ -68,7 +68,7 @@ export const getQuestion = async (params: {
     }
   | undefined
 > => {
-  const questions = await getQuestions();
+  const questions = getQuestions();
   const question = questions.find((q) => q.id === Number(params.id));
 
   if (!question) {
@@ -87,11 +87,8 @@ export const getQuestion = async (params: {
 export const getPercentageScore = (answers: Array<number>): number => {
   const scores = [-2, -1, 0, 1, 2];
   const total = answers.reduce((acc, answer) => {
-    console.log({ acc, answer });
     return acc + scores[answer];
   }, 0);
-
-  console.log({ total });
 
   const percentage =
     ((total + 2 * answers.length) / (2 * 2 * answers.length)) * 100;

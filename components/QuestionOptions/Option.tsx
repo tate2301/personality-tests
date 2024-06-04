@@ -19,6 +19,7 @@ const Option = (props: OptionProps) => {
       <RadioGroup.Item
         value={`${props.index}`}
         id={`option-${props.index}`}
+        data-testid={`option-${props.index}`}
         className={cn(
           "bg-white w-[24px] h-[24px] rounded-full border border-zinc-400/30",
           props.isSelected && "ring ring-blue-600"
@@ -29,6 +30,7 @@ const Option = (props: OptionProps) => {
       <label
         className="flex-1 inset-0 absolute pl-14 flex items-center"
         htmlFor={`option-${props.index}`}
+        data-testid={`option-${props.index}-label`}
       >
         {props.option}
       </label>

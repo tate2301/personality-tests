@@ -1,7 +1,6 @@
 "use client";
 import { Question } from "@/types";
 import QuestionOptions from "../QuestionOptions/OptionList";
-import Link from "next/link";
 import {
   ArrowLeftIcon,
   ArrowRightIcon,
@@ -18,7 +17,6 @@ import AnswersContext from "@/context/AnswersContext";
 const QuestionCard = (props: {
   question: Question;
   nextQuestionIdx: number | undefined;
-  answers: string;
 }) => {
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const router = useRouter();
@@ -62,12 +60,19 @@ const QuestionCard = (props: {
       <div className="max-w-3xl bg-white/90 rounded-2xl overflow-hidden shadow">
         <div className="h-[56px] px-6 pb-0 bg-zinc-900/5 flex items-center justify-between">
           <p className="text-zinc-500 font-medium">
-            <span className="text-[#121212] font-semibold">
+            <span
+              data-testid="question-index"
+              className="text-[#121212] font-semibold"
+            >
               Question {props.question.id}
             </span>{" "}
             of 5
           </p>
-          <button onClick={restartSession} className="font-semibold">
+          <button
+            id="restart-session"
+            onClick={restartSession}
+            className="font-semibold"
+          >
             Restart session
           </button>
         </div>
@@ -78,10 +83,16 @@ const QuestionCard = (props: {
             }}
             animate={{ opacity: 1, transition: { ...spring } }}
           >
-            <h1 className="text-3xl font-semibold tracking-tight leaidng-[1.2rem] mb-2">
+            <h1
+              data-testid="question-title"
+              className="text-3xl font-semibold tracking-tight leaidng-[1.2rem] mb-2"
+            >
               {props.question.question}
             </h1>
-            <p className="text-lg text-zinc-500 text-balance">
+            <p
+              data-testid="question-description"
+              className="text-lg text-zinc-500 text-balance"
+            >
               {props.question.description}
             </p>
           </motion.div>
@@ -95,6 +106,7 @@ const QuestionCard = (props: {
         <AnimatePresence mode="wait" initial={false}>
           {props.question.id > 1 && (
             <Button
+              data-testid="prev"
               onClick={previous}
               className="aspect-square p-0 bg-[#DBDBDB] border border-white/50"
             >
@@ -104,6 +116,7 @@ const QuestionCard = (props: {
         </AnimatePresence>
 
         <Button
+          data-testid="next"
           onClick={() => next(!props.nextQuestionIdx)}
           disabled={!selectedOption && selectedOption !== 0}
           className="disabled:!opacity-40 transition-opacity duration-300"
